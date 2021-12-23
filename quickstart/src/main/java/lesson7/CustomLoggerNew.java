@@ -1,0 +1,25 @@
+package lesson7;
+
+import io.qameta.allure.Allure;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.events.WebDriverListener;
+
+import java.io.ByteArrayInputStream;
+
+public class CustomLoggerNew implements WebDriverListener {
+    public void beforeFindElement(WebDriver driver, By locator) {
+        Allure.addAttachment("Скриншот страницы ",
+                new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+
+    }
+
+    public void beforeGet(WebDriver driver, String url) {
+        Allure.addAttachment("Get ",
+                new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+    }
+
+    public void beforeQuit(WebDriver driver) {
+        Allure.addAttachment("Quit",
+                new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+    }
+}
